@@ -1,0 +1,27 @@
+{
+  "name": "commercify-api",
+  "version": "1.0.0",
+  "description": "API for Commercify - a Super Tiny Invoice Generator Application",
+  "scripts": {
+    "dev-start": "nodemon ./src/server.js",
+    "test": "mocha test/**/*.test.js",
+    "populate-db": "node ./src/data-layer/populate-db.js",
+    "start": "node ./src/server.js"
+  },
+  "keywords": [],
+  "author": "peZhman ParsaEe",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.2",
+    "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "moment-jalaali": "^0.8.3",
+    "mongodb": "^3.1.13",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10"
+  }
+}
