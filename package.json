@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "API for Commercify - a Super Tiny Invoice Generator Application",
   "scripts": {
-    "dev-start": "nodemon ./src/server.js",
-    "test": "mocha test/**/*.test.js",
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
     "populate-db": "node ./src/data-layer/populate-db.js",
-    "start": "node ./src/server.js"
+    "test": "mocha test/**/*.test.js"
   },
   "keywords": [],
   "author": "peZhman ParsaEe",

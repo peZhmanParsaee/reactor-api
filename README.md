@@ -18,11 +18,11 @@ Reactor is a super tiny invoice management application. This code repository is 
 
 ## How To Run in Development Mode
 
-* Run `npm run dev-start`.
+* Run `npm run dev`
 
 ## How To Run in Production Mode
 
-* Run `npm start`. 
+* Run `npm start`
 
 ## Available Scripts
 
@@ -31,7 +31,7 @@ In the project folder, you can run these shell commands:
 ### `npm install`
 It installs all npm modules that are required for running the application.
 
-### `npm run dev-start`
+### `npm run dev`
 It runs the project in development watch mode.
 
 ### `npm test`
