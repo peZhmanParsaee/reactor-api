@@ -7,7 +7,7 @@ module.exports = (app) => {
   
   app.use(cors());
 
-  app.use(bodyParser());
+  app.use(bodyParser.json());
 
-  app.use(morgan());
+  app.use(morgan('tiny'));
 }
