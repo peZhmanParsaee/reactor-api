@@ -22,16 +22,50 @@ class InvoiceService {
     
     console.log(invoiceType);
 
+    let filter = {};
+
+    console.log(fromDate);
+    console.log(toDate);
+    console.log(typeof toDate);
+
+    if (fromDate != null && toDate != null) {
+      console.log('two')
+      filter = {
+        createdAt: {
+          $gte: fromDate,
+          $lt: toDate
+        }
+      }
+    } else if (fromDate != null) {
+      filter = {
+        createdAt: {
+          $gte: fromDate
+        }
+      }
+    } else if (toDate != null) {
+      filter = {
+        createdAt: {
+          $lt: toDate
+        }
+      }
+    }
+
+    console.dir(filter);
+
     switch (invoiceType) {
-      case 'INVOICES':
+      case 'INVOICES':        
         res = await db.collection(COLLECTIONS.INVOICES)
-                        // .find()
-                        .aggregate([{ 
-                          $lookup: {
-                            from: COLLECTIONS.CUSTOMERS,
-                            localField: '_id',
-                            foreignField: 'customerId',
-                            as: 'customer'
+                        // .find(filter)
+                        .aggregate([
+                          {
+                            $match: filter
+                          },
+                          { 
+                            $lookup: {
+                              from: COLLECTIONS.CUSTOMERS,
+                              localField: '_id',
+                              foreignField: 'customerId',
+                              as: 'customer'
                            }
                          }
                         ])

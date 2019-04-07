@@ -1,9 +1,11 @@
 module.exports = ({ 
   status, 
   message = 'عملیات با موفقیت انجام شد.', 
-  payload = null
+  payload = null,
+  errors = []
 } = {}) => ({
   status,
   message, 
-  payload
+  payload,
+  errors
 });
