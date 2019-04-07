@@ -1,6 +1,6 @@
 module.exports = ({ 
   status, 
-  message = 'عملیات با موفقیت انجام شد.', 
+  message = '', 
   payload = null,
   errors = []
 } = {}) => ({

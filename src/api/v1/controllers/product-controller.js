@@ -21,11 +21,11 @@ ProductController.prototype.add = async (req, res, next) => {
     
     req.check('stock')
       .notEmpty().withMessage('موجودی اجباری است')
-      .matches(/^[0-9]{10}/).withMessage('موجودی باید یک عدد باشد');
+      .matches(/^[1-9]{1}[0-9]{0,6}$/).withMessage('موجودی باید یک عدد باشد');
     
     req.check('unitPrice')
       .notEmpty().withMessage('قیمت واحد اجباری است')
-      .matches(/^[0-9]{10}/).withMessage('قیمت واحد باید یک عدد باشد');
+      .matches(/^[1-9]{1}[0-9]{0,5}$/).withMessage('قیمت واحد باید یک عدد باشد');
     
     const validationResult = await req.getValidationResult();
 
@@ -35,6 +35,7 @@ ProductController.prototype.add = async (req, res, next) => {
         payload: res.body,
         errors: validationResult.array()
       });
+      console.dir(opStatus1);
       return res.json(opStatus1);
     }
     
