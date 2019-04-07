@@ -2,6 +2,7 @@ const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require("../../infrastructures/models/enums.json");
 const { getCurrectTimeStamp  } = require("../../infrastructures/helpers/date-time-helper");
+var ObjectID = require('mongodb').ObjectID;
 
 class InvoiceService {
   async getAll() {
@@ -18,7 +19,7 @@ class InvoiceService {
   async getPage({ offset, limit, fromDate, toDate, invoiceType }) {
     console.log(`limit: ${limit}, offset: ${offset}`);
     const db = await dbContext.connect();
-    let res;
+    let res = [];
     
     console.log(invoiceType);
 
@@ -54,7 +55,7 @@ class InvoiceService {
 
     switch (invoiceType) {
       case 'INVOICES':        
-        res = await db.collection(COLLECTIONS.INVOICES)
+        const invoices = await db.collection(COLLECTIONS.INVOICES)
                         // .find(filter)
                         .aggregate([
                           {
@@ -72,15 +73,36 @@ class InvoiceService {
                         .skip(offset)
                         .limit(limit)
                         .toArray();
+        
+        for (const invoice of invoices) {
+          const selectedCustomer = await db.collection(COLLECTIONS.CUSTOMERS).findOne({ _id: ObjectID(invoice.customerId) });
+          res.push({
+            ...invoice,
+            customerName: selectedCustomer.fullName
+          });
+        }
+      
         break;
 
       case 'INVOICE_ITEMS':        
-        res = await db.collection(COLLECTIONS.INVOICES)
+        const invoicesRes = await db.collection(COLLECTIONS.INVOICES)
           .find()
           .skip(offset)
           .limit(limit)
           .toArray();
-    }    
+        
+        for (const invoice of invoicesRes) {
+          for (const product of invoice.products) {
+            const selectedCustomer = await db.collection(COLLECTIONS.CUSTOMERS).findOne({ _id: ObjectID(invoice.customerId) });
+            res.push({
+              invoiceId: invoice._id,
+              invoiceNo: invoice.no,
+              productName: product.name,
+              customerName: selectedCustomer.fullName
+            });
+          }
+        }
+    }
     
     return opStatusGenerator({
       status: true,
