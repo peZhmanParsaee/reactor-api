@@ -1,8 +1,8 @@
 const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require("../../infrastructures/models/enums.json");
-const { getCurrectTimeStamp  } = require("../../infrastructures/helpers/date-time-helper");
-var ObjectID = require('mongodb').ObjectID;
+const { getCurrectTimeStamp, formatJalaaliDate, addToJalaaliDate, addToTimestampAndFormatJalaali } = require("../../infrastructures/helpers/date-time-helper");
+const ObjectID = require('mongodb').ObjectID;
 
 class InvoiceService {
   async getAll() {
@@ -78,7 +78,14 @@ class InvoiceService {
           const selectedCustomer = await db.collection(COLLECTIONS.CUSTOMERS).findOne({ _id: ObjectID(invoice.customerId) });
           res.push({
             ...invoice,
-            customerName: selectedCustomer.fullName
+            customerName: selectedCustomer.fullName,
+            deliverAtFormatted: addToTimestampAndFormatJalaali({
+              // jalaaliDate: invoice.date, 
+              timestamp: invoice.createdAt,
+              outFormat:'dddd jDD jMMMM ساعت HH',              
+              addValue: invoice.deliverAfter, 
+              addUnit: invoice.deliverAfterTimeUnit
+            })
           });
         }
       
