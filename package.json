@@ -6,7 +6,8 @@
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
     "populate-db": "node ./src/data-layer/populate-db.js",
-    "test": "mocha test/**/*.test.js"
+    "lint": "eslint src",
+    "test": "set NODE_ENV=test && npm run lint && mocha test/**/*.test.js"
   },
   "keywords": [],
   "author": "peZhman ParsaEe",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "mocha": "^6.0.2",
+    "eslint": "^5.16.0",
     "nodemon": "^1.18.10"
   }
 }
