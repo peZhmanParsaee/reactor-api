@@ -27,26 +27,31 @@ class InvoiceService {
 
     console.log(fromDate);
     console.log(toDate);
+    console.log(typeof fromDate);
     console.log(typeof toDate);
 
     if (fromDate != null && toDate != null) {
       console.log('two')
+      const fromDateStartOfDay = Math.floor(fromDate / 86400) * 86400;
+      const toDateEndOfDay = Math.ceil(toDate / 86400) * 86400;
       filter = {
-        createdAt: {
-          $gte: fromDate,
-          $lt: toDate
+        "createdAt": {
+          $gte: fromDateStartOfDay / 1000,
+          $lt: toDateEndOfDay / 1000
         }
       }
     } else if (fromDate != null) {
+      const fromDateStartOfDay = Math.floor(fromDate / 86400) * 86400;
       filter = {
-        createdAt: {
-          $gte: fromDate
+        "createdAt": {
+          $gte: fromDateStartOfDay / 1000
         }
       }
     } else if (toDate != null) {
+      const toDateEndOfDay = Math.ceil(toDate / 86400) * 86400;
       filter = {
-        createdAt: {
-          $lt: toDate
+        "createdAt": {
+          $lt: toDateEndOfDay / 1000
         }
       }
     }
@@ -93,7 +98,7 @@ class InvoiceService {
 
       case 'INVOICE_ITEMS':        
         const invoicesRes = await db.collection(COLLECTIONS.INVOICES)
-          .find()
+          .find(filter)
           .skip(offset)
           .limit(limit)
           .toArray();
@@ -122,7 +127,8 @@ class InvoiceService {
     let res = await db.collection(COLLECTIONS.INVOICES)
                         .insertOne({
                           ...invoice,
-                          createdAt: getCurrectTimeStamp()
+                          createdAt: getCurrectTimeStamp() / 1000
+                          // createdAt: new Date().getTime()
                         });
     return opStatusGenerator({
       status: res.result.ok === 1,

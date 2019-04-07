@@ -34,7 +34,6 @@ InvoiceController.prototype.getList = async (req, res, next) => {
       const fromDate = req.query.fromDate && req.query.fromDate != 'null' ? req.query.fromDate : null;
       const toDate = req.query.toDate && req.query.toDate != 'null' ? req.query.toDate : null;
       const invoiceType = req.query.invoiceType;
-
       const opStatus = await _invoiceService.getPage({ offset, limit, fromDate, toDate, invoiceType });
       return res.json(opStatus);
     } else {
