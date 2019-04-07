@@ -34,6 +34,9 @@ It installs all npm modules that are required for running the application.
 ### `npm run dev`
 It runs the project in development watch mode.
 
+### `npm run lint`
+It runs eslint to check if there is any coding error/warning.
+
 ### `npm test`
 It runs unit tests and show the result in the CLI.
 
