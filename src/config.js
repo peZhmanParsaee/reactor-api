@@ -9,7 +9,8 @@ module.exports = {
     name: process.env.DB_NAME,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
-    url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/?authMechanism=DEFAULT`
+    // url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/?authMechanism=DEFAULT`
+    url: process.env.MONGOLAB_URI
   }
 }
 
