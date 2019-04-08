@@ -99,14 +99,16 @@ class InvoiceService {
       case 'INVOICE_ITEMS':        
         const invoicesRes = await db.collection(COLLECTIONS.INVOICES)
           .find(filter)
-          .skip(offset)
-          .limit(limit)
+          // .skip(offset)
+          // .limit(limit)
           .toArray();
+
+        const invoicesItems = [];
         
         for (const invoice of invoicesRes) {
           for (const product of invoice.products) {
             const selectedCustomer = await db.collection(COLLECTIONS.CUSTOMERS).findOne({ _id: ObjectID(invoice.customerId) });
-            res.push({
+            invoicesItems.push({
               invoiceId: invoice._id,
               invoiceNo: invoice.no,
               productName: product.name,
@@ -114,6 +116,8 @@ class InvoiceService {
             });
           }
         }
+
+        res = invoicesItems.slice(offset, offset + limit);
     }
     
     return opStatusGenerator({
