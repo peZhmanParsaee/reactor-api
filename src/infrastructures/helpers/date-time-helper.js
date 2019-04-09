@@ -15,8 +15,6 @@ exports.addToJalaaliDate = ({jalaaliDate, inFormat='jYYYY/jMM/jDD', outFormat, a
   moment.loadPersian();
   const enDigitsJalaaliDate = faToEnDigits(jalaaliDate);
   const momentDate = moment(enDigitsJalaaliDate, inFormat);
-  console.log(`addValue: ${addValue}`);
-  console.log(`addUnit: ${addUnit}`);
   switch (addUnit) {
     case 'day':
       momentDate.add(addValue, 'days');
@@ -33,11 +31,8 @@ exports.addToJalaaliDate = ({jalaaliDate, inFormat='jYYYY/jMM/jDD', outFormat, a
 
 exports.addToTimestampAndFormatJalaali = ({timestamp, outFormat, addValue, addUnit}) => {
   moment.loadPersian();
-  // const momentDate = moment(timestamp / 1000,'X');
   const momentDate = moment(timestamp,'X');
   
-  console.log(`addValue: ${addValue}`);
-  console.log(`addUnit: ${addUnit}`);
   switch (addUnit) {
     case 'day':
       momentDate.add(1, 'days');
