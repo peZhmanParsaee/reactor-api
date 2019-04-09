@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('../infrastructures/middlewares/cors');
 const expressValidator = require('express-validator');
 const persianJs = require('persianjs');
+const bodySanitizer = require('../infrastructures/middlewares/body-sanitizer');
 
 module.exports = (app) => {
   global.__baseDir = __dirname;  
@@ -52,4 +53,6 @@ module.exports = (app) => {
       }
     }
   }));
+
+  app.use(bodySanitizer());
 }
