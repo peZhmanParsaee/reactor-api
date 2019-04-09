@@ -6,5 +6,6 @@ const _customerController = new CustomerController();
 
 router.get("/", _customerController.getAll);
 
+router.get("/search", _customerController.search);
 
 module.exports = router;
