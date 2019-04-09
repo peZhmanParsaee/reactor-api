@@ -9,7 +9,7 @@ exports.fixYeKe = (value) => {
     const arabicYeKeChars = ["ي", "ك"],
         persianYeKeChars = ["ی", "ک"];
 
-    for (const i = 0, charsLen = arabicYeKeChars.length; i < charsLen; i++) {
+    for (let i = 0, charsLen = arabicYeKeChars.length; i < charsLen; i++) {
         value = value.replace(new RegExp(arabicYeKeChars[i], "g"), persianYeKeChars[i]);
     }
     
