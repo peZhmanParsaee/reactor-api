@@ -11,8 +11,8 @@ module.exports = (app) => {
   app.use(cors());
 
   app.use(bodyParser.json());
-
-  app.use(morgan('tiny'));
+  
+  app.use(morgan('dev'));
 
   app.use(expressValidator({
     customValidators: {
