@@ -12,4 +12,14 @@ CustomerController.prototype.getAll = async (req, res, next) => {
   }
 }
 
+CustomerController.prototype.search = async (req, res, next) => {
+  try {
+    const customerName = req.query.q;
+    const opStatus = await _customerService.search(customerName);
+    res.json(opStatus);
+  } catch (error) {
+    next(error);    
+  }
+}
+
 module.exports = CustomerController;
