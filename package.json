@@ -7,7 +7,8 @@
     "dev": "cross-env NODE_ENV=development nodemon --exec ./node_modules/.bin/babel-node ./src/server.js",
     "populate-db": "node ./src/data-layer/populate-db.js",
     "lint": "eslint src",
-    "test": "set NODE_ENV=test && npm run lint && mocha test/**/*.test.js"
+    "test": "set NODE_ENV=test && npm run lint && mocha test/**/*.test.js",
+    "flow": "flow"
   },
   "keywords": [],
   "author": "peZhman ParsaEe",
@@ -31,9 +32,16 @@
     "@babel/node": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-flow": "^7.7.4",
+    "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
+    "eslint-config-prettier": "^6.2.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-flowtype": "^4.5.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "flow-bin": "^0.114.0",
     "mocha": "^6.0.2",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "prettier": "^1.19.1"
   },
   "engines": {
     "node": "10.15.3"
