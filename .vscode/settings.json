@@ -1,0 +1,9 @@
+{
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "javascript.validate.enable": false,
+  "typescript.validate.enable": false,
+  "editor.formatOnSave": false,
+  "flow.runOnEdit": false,
+  "flow.useNPMPackagedFlow": true
+}
