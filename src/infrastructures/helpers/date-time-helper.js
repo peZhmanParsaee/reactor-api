@@ -1,3 +1,4 @@
+// @flow
 const moment = require('moment-jalaali');
 const { faToEnDigits, enToFaDigits } = require('./number-helper');
 

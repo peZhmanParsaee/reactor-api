@@ -1,3 +1,5 @@
+// @flow
+
 require('dotenv').config();
 
 module.exports = {
