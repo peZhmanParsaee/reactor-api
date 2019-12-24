@@ -4,7 +4,7 @@
   "description": "API for Commercify - a Super Tiny Invoice Generator Application",
   "scripts": {
     "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec ./node_modules/.bin/babel-node ./src/server.js",
     "populate-db": "node ./src/data-layer/populate-db.js",
     "lint": "eslint src",
     "test": "set NODE_ENV=test && npm run lint && mocha test/**/*.test.js"
@@ -13,6 +13,7 @@
   "author": "peZhman ParsaEe",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.7.7",
     "async": "^2.6.2",
     "body-parser": "^1.18.3",
     "cross-env": "^6.0.3",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
+    "@babel/node": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-flow": "^7.7.4",
     "eslint": "^5.16.0",
