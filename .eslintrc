@@ -4,7 +4,12 @@
     "node": true,
     "mocha": true
   },
-  "extends": "eslint:recommended",
+  "plugins": [
+    "flowtype"
+  ],
+  "extends": [
+    "plugin:flowtype/recommended"
+  ],
   "rules": {
     "indent": [
       "error",
