@@ -24,8 +24,12 @@
     "persianjs": "^0.4.0"
   },
   "devDependencies": {
-    "mocha": "^6.0.2",
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-flow": "^7.7.4",
     "eslint": "^5.16.0",
+    "mocha": "^6.0.2",
     "nodemon": "^1.18.10"
   },
   "engines": {
