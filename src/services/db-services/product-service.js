@@ -1,12 +1,12 @@
 const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
-const { COLLECTIONS } = require("../../infrastructures/models/enums.json");
+const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
 class ProductService {
   async getAll() {
     const db = await dbContext.connect();
     const res = await db.collection(COLLECTIONS.PRODUCTS)
-                        .find().toArray();
+      .find().toArray();
     
     return opStatusGenerator({
       status: true,
@@ -18,7 +18,7 @@ class ProductService {
     const db = await dbContext.connect()
       
     const res = await db.collection(COLLECTIONS.PRODUCTS)
-                  .insertOne(product);
+      .insertOne(product);
     
     return opStatusGenerator({
       status: res.result.ok === 1,

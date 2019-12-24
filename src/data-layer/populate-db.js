@@ -1,5 +1,5 @@
 const dbContext = require('./db-context');
-const { COLLECTIONS } = require("../infrastructures/models/enums.json");
+const { COLLECTIONS } = require('../infrastructures/models/enums.json');
 const provincesData = require('./ir-provinces.json');
 const customersData = [
   { fullName: 'پژمان پارسایی' },
@@ -43,7 +43,7 @@ dbContext.connect()
     
     db.createCollection(COLLECTIONS.INVOICES, (err, res) => {
       if (err) throw err;
-      console.log("the invoices collection was created");      
+      console.log('the invoices collection was created');      
     });
     
 

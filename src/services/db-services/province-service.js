@@ -1,6 +1,6 @@
 const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
-const { COLLECTIONS } = require("../../infrastructures/models/enums.json");
+const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
 class ProvinceService {
   async getAll() {
@@ -13,8 +13,8 @@ class ProvinceService {
           localField: '_id',
           foreignField: 'provinceId',
           as: 'cities'
-         }
-       }
+        }
+      }
       ]).toArray();
     
     return opStatusGenerator({

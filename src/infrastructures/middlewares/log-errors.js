@@ -3,4 +3,4 @@ module.exports = (app) => {
     console.error(err.stack);
     next(err);
   });
-}
+};

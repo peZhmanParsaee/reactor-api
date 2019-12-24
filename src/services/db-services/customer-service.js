@@ -5,7 +5,7 @@ class CustomerService {
   async getAll() {
     const db = await dbContext.connect();
     const res = await db.collection('customers')
-                        .find().toArray();
+      .find().toArray();
     
     return opStatusGenerator({
       status: true,

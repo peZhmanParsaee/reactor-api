@@ -10,7 +10,7 @@ CustomerController.prototype.getAll = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 CustomerController.prototype.search = async (req, res, next) => {
   try {
@@ -20,6 +20,6 @@ CustomerController.prototype.search = async (req, res, next) => {
   } catch (error) {
     next(error);    
   }
-}
+};
 
 module.exports = CustomerController;

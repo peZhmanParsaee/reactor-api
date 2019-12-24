@@ -3,8 +3,8 @@ module.exports = (app) => {
   // Catch 404 errors
   app.use(function (req, res, next) {
     const err = new Error('Not Found')
-    err.status = 404
-    next(err)
+    err.status = 404;
+    next(err);
   });
 
   // Handle errors on development
@@ -13,7 +13,7 @@ module.exports = (app) => {
       res.status(err.status || 500).send({
         message: err.message,
         error: err
-      })
+      });
     });
   }
   
@@ -23,6 +23,6 @@ module.exports = (app) => {
     res.status(err.status || 500).send({
       message: err.message,
       error: {}
-    })
+    });
   });
 };

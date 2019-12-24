@@ -14,10 +14,10 @@ class Connection {
       return Promise.resolve(this.db);
     } else {
       return MongoClient.connect(this.uri)
-          .then(client => {
-            this.db = client.db(this.name);
-            return this.db;
-          });
+        .then(client => {
+          this.db = client.db(this.name);
+          return this.db;
+        });
     }
   }
 }
