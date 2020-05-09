@@ -10,41 +10,43 @@ const customersData = [
 ];
 
 dbContext.connect()
-  .then(db => {
+  .then(async client => {
     
     for (const province of provincesData) {
 
-      db.collection(COLLECTIONS.PROVINCES)
+      await client.db.collection(COLLECTIONS.PROVINCES)
         .insertOne({
           name: province.name
         })
-        .then(insertProvinceResult => {
+        .then(async insertProvinceResult => {
           const provinceId = insertProvinceResult.insertedId;
 
           const provinceCities = province.cities.map(function(city) {
             return {
               provinceId: provinceId,
               name: city.name          
-            }
+            };
           });
 
-          db.collection(COLLECTIONS.CITIES).insertMany(provinceCities);
+          await client.db.collection(COLLECTIONS.CITIES).insertMany(provinceCities);
 
         });
     }
 
-    db.collection(COLLECTIONS.CUSTOMERS)
+    await client.db.collection(COLLECTIONS.CUSTOMERS)
       .insertMany(customersData);
     
-    db.collection(COLLECTIONS.LAST_INVOICE_NO)
+    await client.db.collection(COLLECTIONS.LAST_INVOICE_NO)
       .insertOne({
         invoiceNo: 1
       });
     
-    db.createCollection(COLLECTIONS.INVOICES, (err, res) => {
-      if (err) throw err;
-      console.log('the invoices collection was created');      
-    });
-    
+    await client.db.createCollection(COLLECTIONS.INVOICES);    
 
+    await client.connection.close();
+
+    console.log('Data was imported successfully');
+  })
+  .catch(err => {
+    console.error(err);
   });
