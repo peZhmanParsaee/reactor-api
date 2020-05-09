@@ -1,3 +1,5 @@
+// @flow
+
 const ProvinceService = require('../../../services/db-services/province-service');
 const _provinceService = new ProvinceService();
 
@@ -10,6 +12,6 @@ ProvinceController.prototype.getAll = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = ProvinceController;
