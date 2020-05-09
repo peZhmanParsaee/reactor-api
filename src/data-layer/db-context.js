@@ -4,19 +4,20 @@ const config = require('../config');
 class Connection {
   constructor(uri, name) {
     this.db = null;
+    this.connection = null;
     this.uri = uri;
     this.name = name;
   }
 
   connect() {
-    console.log(JSON.stringify(config));
-    if (this.db) {
-      return Promise.resolve(this.db);
+    if (this.db && this.connection) {
+      return Promise.resolve({ db: this.db, connection: this.connection });
     } else {
       return MongoClient.connect(this.uri, { useNewUrlParser: true })
-        .then(client => {
-          this.db = client.db(this.name);
-          return this.db;
+        .then(connection => {
+          this.db = connection.db(this.name);
+          this.connection = connection;
+          return { db: this.db, connection: this.connection };
         });
     }
   }
