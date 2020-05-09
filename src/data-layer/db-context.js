@@ -13,7 +13,7 @@ class Connection {
     if (this.db) {
       return Promise.resolve(this.db);
     } else {
-      return MongoClient.connect(this.uri)
+      return MongoClient.connect(this.uri, { useNewUrlParser: true })
         .then(client => {
           this.db = client.db(this.name);
           return this.db;
