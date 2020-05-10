@@ -1,14 +1,16 @@
+const ObjectID = require('mongodb').ObjectID;
+
 const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 const { getCurrectTimeStamp, formatJalaaliDate, addToJalaaliDate, addToTimestampAndFormatJalaali } = require('../../infrastructures/helpers/date-time-helper');
-const ObjectID = require('mongodb').ObjectID;
+
 
 class InvoiceService {
   async getAll() {
     const db = await dbContext.connect();
     const res = await db.collection(COLLECTIONS.INVOICES)
-    S.find().toArray();
+      .find().toArray();
     
     return opStatusGenerator({
       status: true,
@@ -17,18 +19,10 @@ class InvoiceService {
   }
 
   async getPage({ offset, limit, fromDate, toDate, invoiceType }) {
-    console.log(`limit: ${limit}, offset: ${offset}`);
     const db = await dbContext.connect();
     let res = [];
     
-    console.log(invoiceType);
-
     let filter = {};
-
-    console.log(fromDate);
-    console.log(toDate);
-    console.log(typeof fromDate);
-    console.log(typeof toDate);
 
     if (fromDate != null && toDate != null) {
       const fromDateStartOfDay = Math.floor(fromDate / 86400) * 86400;
@@ -38,21 +32,21 @@ class InvoiceService {
           $gte: fromDateStartOfDay / 1000,
           $lt: toDateEndOfDay / 1000
         }
-      }
+      };
     } else if (fromDate != null) {
       const fromDateStartOfDay = Math.floor(fromDate / 86400) * 86400;
       filter = {
         'createdAt': {
           $gte: fromDateStartOfDay / 1000
         }
-      }
+      };
     } else if (toDate != null) {
       const toDateEndOfDay = Math.ceil(toDate / 86400) * 86400;
       filter = {
         'createdAt': {
           $lt: toDateEndOfDay / 1000
         }
-      }
+      };
     }
 
     console.dir(filter);
