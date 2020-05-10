@@ -14,5 +14,5 @@ module.exports = {
     url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/?authMechanism=DEFAULT`
     // url: process.env.MONGOLAB_URI
   }
-}
+};
 
