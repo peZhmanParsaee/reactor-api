@@ -4,7 +4,7 @@ const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
 class ProductService {
   async getAll() {
-    const db = await dbContext.connect();
+    const { db } = await dbContext.connect();
     const res = await db.collection(COLLECTIONS.PRODUCTS)
       .find().toArray();
     
@@ -15,7 +15,7 @@ class ProductService {
   }
 
   async add(product) {
-    const db = await dbContext.connect()
+    const { db } = await dbContext.connect()
       
     const res = await db.collection(COLLECTIONS.PRODUCTS)
       .insertOne(product);

@@ -8,7 +8,7 @@ const { getCurrectTimeStamp, formatJalaaliDate, addToJalaaliDate, addToTimestamp
 
 class InvoiceService {
   async getAll() {
-    const db = await dbContext.connect();
+    const { db } = await dbContext.connect();
     const res = await db.collection(COLLECTIONS.INVOICES)
       .find().toArray();
     
@@ -19,7 +19,7 @@ class InvoiceService {
   }
 
   async getPage({ offset, limit, fromDate, toDate, invoiceType }) {
-    const db = await dbContext.connect();
+    const { db } = await dbContext.connect();
     let res = [];
     
     let filter = {};
@@ -120,7 +120,7 @@ class InvoiceService {
   }
 
   async add(invoice) {
-    const db = await dbContext.connect();
+    const { db } = await dbContext.connect();
     let res = await db.collection(COLLECTIONS.INVOICES)
       .insertOne({
         ...invoice,

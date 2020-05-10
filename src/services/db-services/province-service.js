@@ -4,7 +4,7 @@ const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
 class ProvinceService {
   async getAll() {
-    const db = await dbContext.connect();
+    const { db } = await dbContext.connect();
 
     const res = await db.collection(COLLECTIONS.PROVINCES)
       .aggregate([{ 

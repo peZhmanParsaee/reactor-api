@@ -4,7 +4,7 @@ const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
 class LastInvoiceNoService {
   async getNewInvoiceNo() {
-    const db = await dbContext.connect();
+    const { db } = await dbContext.connect();
     let res = await db.collection(COLLECTIONS.LAST_INVOICE_NO)
       .findOne();
     
