@@ -8,4 +8,4 @@ module.exports = app => {
   app.use('/api/v1/province', provinceRoutes);
   app.use('/api/v1/product', productRoutes);
   app.use('/api/v1/invoice', invoiceRoutes);
-}
+};
