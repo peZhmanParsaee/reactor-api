@@ -2,7 +2,7 @@ module.exports = (app) => {
   
   // Catch 404 errors
   app.use(function (req, res, next) {
-    const err = new Error('Not Found')
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
@@ -19,7 +19,7 @@ module.exports = (app) => {
   
   // Handle errors on production
   app.use(function (err, req, res, next) {
-    console.log('using production error handler')
+    console.log('using production error handler');
     res.status(err.status || 500).send({
       message: err.message,
       error: {}

@@ -15,7 +15,7 @@ class ProductService {
   }
 
   async add(product) {
-    const { db } = await dbContext.connect()
+    const { db } = await dbContext.connect();
       
     const res = await db.collection(COLLECTIONS.PRODUCTS)
       .insertOne(product);
