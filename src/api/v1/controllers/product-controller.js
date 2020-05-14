@@ -11,7 +11,7 @@ ProductController.prototype.getAll = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 ProductController.prototype.add = async (req, res, next) => {
   try {
@@ -45,6 +45,6 @@ ProductController.prototype.add = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = ProductController;

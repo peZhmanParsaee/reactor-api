@@ -13,7 +13,7 @@ InvoiceController.prototype.getNewInvoiceNo = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 InvoiceController.prototype.add = async (req, res, next) => {
   try {
@@ -23,7 +23,7 @@ InvoiceController.prototype.add = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 InvoiceController.prototype.getList = async (req, res, next) => {
   try {    
@@ -43,6 +43,6 @@ InvoiceController.prototype.getList = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 module.exports = InvoiceController;
