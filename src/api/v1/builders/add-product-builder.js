@@ -4,6 +4,7 @@ export default (function AddProductBuilder() {
     stock: null,
     unitPrice: null
   };
+  let validationErrors = [];
 
   function setName(name) {
     if (name) {
@@ -26,7 +27,23 @@ export default (function AddProductBuilder() {
     return this;
   }
 
+  function validate() {
+    if (!self.name) {
+      validationErrors.push('نام محصول اجباری است');
+    }
+    if (!self.stock) {
+      validationErrors.push('موجودی اجباری است');
+    }
+    if (!self.unitPrice) {
+      validationErrors.push('قیمت واحد اجباری است');
+    }
+    return validationErrors.length === 0;
+  }
+
   function build() {
+    if (!validate()) {
+      // TODO return errors or throw an error
+    }
     return self;
   }
 
