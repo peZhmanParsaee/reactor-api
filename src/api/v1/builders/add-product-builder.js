@@ -1,4 +1,4 @@
-function AddProductBuilder() {
+export default (function AddProductBuilder() {
   let self = {
     name: null,
     stock: null,
@@ -31,8 +31,9 @@ function AddProductBuilder() {
   }
 
   return {
+    build,
     setName,
     setStock,
     setUnitPrice
   };
-}
+})();
