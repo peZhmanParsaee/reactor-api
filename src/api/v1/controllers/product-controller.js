@@ -1,12 +1,12 @@
-const ProductService = require('../../../services/db-services/product-service');
+const productService = require('../../../services/db-services/product-service');
 const opStatusGenerator = require('../../../infrastructures/helpers/op-status-generator');
-const AddProductBuilder = require('../builders/add-product-builder');
+const addProductBuilder = require('../builders/add-product-builder');
 
 function ProductController () {}
 
 ProductController.prototype.getAll = async (req, res, next) => {
   try {
-    const opStatus = await ProductService.getAll();
+    const opStatus = await productService.getAll();
     res.json(opStatus);
   } catch (err) {
     next(err);
@@ -15,7 +15,7 @@ ProductController.prototype.getAll = async (req, res, next) => {
 
 ProductController.prototype.add = async (req, res, next) => {
   try {
-    const viewModel = AddProductBuilder
+    const viewModel = addProductBuilder
       .setName(req.body.name)
       .setStock(req.body.stock)
       .setUnitPrice(req.body.setUnitPrice)
@@ -46,7 +46,7 @@ ProductController.prototype.add = async (req, res, next) => {
     // }
     
     const newProduct = viewModel;
-    const opStatus = await ProductService.add(newProduct);
+    const opStatus = await productService.add(newProduct);
     res.json(opStatus);
   } catch (err) {
     next(err);

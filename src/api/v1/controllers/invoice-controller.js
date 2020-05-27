@@ -1,14 +1,12 @@
-const LastInvoiceNoService = require('../../../services/db-services/last-invoice-no-service');
-const InvoiceService = require('../../../services/db-services/invoice-service');
+const lastInvoiceNoService = require('../../../services/db-services/last-invoice-no-service');
+const invoiceService = require('../../../services/db-services/invoice-service');
 const NumberHelper = require('../../../infrastructures/helpers/number-helper');
-const _lastInvoiceNoService = new LastInvoiceNoService();
-const _invoiceService = new InvoiceService();
 
 function InvoiceController() {}
 
 InvoiceController.prototype.getNewInvoiceNo = async (req, res, next) => {
   try {
-    const opStatus = await _lastInvoiceNoService.getNewInvoiceNo();
+    const opStatus = await lastInvoiceNoService.getNewInvoiceNo();
     res.json(opStatus);
   } catch (err) {
     next(err);
@@ -18,7 +16,7 @@ InvoiceController.prototype.getNewInvoiceNo = async (req, res, next) => {
 InvoiceController.prototype.add = async (req, res, next) => {
   try {
     const invoice = req.body;
-    const opStatus = await _invoiceService.add(invoice);
+    const opStatus = await invoiceService.add(invoice);
     res.json(opStatus);
   } catch (err) {
     next(err);
@@ -34,12 +32,12 @@ InvoiceController.prototype.getList = async (req, res, next) => {
       const fromDate = req.query.fromDate && req.query.fromDate != 'null' ? req.query.fromDate : null;
       const toDate = req.query.toDate && req.query.toDate != 'null' ? req.query.toDate : null;
       const invoiceType = req.query.invoiceType;
-      const opStatus = await _invoiceService.getPage({ offset, limit, fromDate, toDate, invoiceType });
+      const opStatus = await invoiceService.getPage({ offset, limit, fromDate, toDate, invoiceType });
       return res.json(opStatus);
-    } else {
-      const opStatus = await _invoiceService.getAll();
-      return res.json(opStatus);
-    }    
+    }
+
+    const opStatus = await invoiceService.getAll();
+    return res.json(opStatus);
   } catch (err) {
     next(err);
   }
