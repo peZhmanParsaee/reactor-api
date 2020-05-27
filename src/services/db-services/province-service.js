@@ -2,8 +2,8 @@ const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
-class ProvinceService {
-  async getAll() {
+const ProvinceService = (function() {
+  async function getAll() {
     const { db } = await dbContext.connect();
 
     const res = await db.collection(COLLECTIONS.PROVINCES)
@@ -21,7 +21,11 @@ class ProvinceService {
       status: true,
       payload: res
     });
-  }  
-}
+  }
+
+  return {
+    getAll
+  };
+})();
 
 module.exports = ProvinceService;

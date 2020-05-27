@@ -2,8 +2,8 @@ const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
-class LastInvoiceNoService {
-  async getNewInvoiceNo() {
+const LastInvoiceNoService = (function() {
+  async function getNewInvoiceNo() {
     const { db } = await dbContext.connect();
     let res = await db.collection(COLLECTIONS.LAST_INVOICE_NO)
       .findOne();
@@ -15,7 +15,11 @@ class LastInvoiceNoService {
       status: true,
       payload: res.invoiceNo + 1
     });
-  }  
-}
+  }
+
+  return {
+    getNewInvoiceNo
+  };
+})();
 
 module.exports = LastInvoiceNoService;

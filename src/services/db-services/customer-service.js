@@ -1,8 +1,8 @@
 const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 
-class CustomerService {
-  async getAll() {
+const CustomerService = (function() {
+  async function getAll() {
     const { db } = await dbContext.connect();
     const res = await db.collection('customers')
       .find().toArray();
@@ -13,7 +13,7 @@ class CustomerService {
     });
   }
 
-  async search(customerName) {
+  async function search(customerName) {
     const { db } = await dbContext.connect();
     const query = { fullName: { '$regex': customerName, '$options' : 'i' } };
     const customers = await db.collection('customers')
@@ -25,6 +25,11 @@ class CustomerService {
       payload: customers
     });
   }
-}
+
+  return {
+    getAll,
+    search
+  }
+})();
 
 module.exports = CustomerService;

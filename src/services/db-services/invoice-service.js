@@ -3,11 +3,11 @@ const ObjectID = require('mongodb').ObjectID;
 const dbContext = require('../../data-layer/db-context');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
-const { getCurrectTimeStamp, formatJalaaliDate, addToJalaaliDate, addToTimestampAndFormatJalaali } = require('../../infrastructures/helpers/date-time-helper');
+const { getCurrectTimeStamp, addToTimestampAndFormatJalaali } = require('../../infrastructures/helpers/date-time-helper');
 
 
-class InvoiceService {
-  async getAll() {
+const InvoiceService = (function() {
+  async function getAll() {
     const { db } = await dbContext.connect();
     const res = await db.collection(COLLECTIONS.INVOICES)
       .find().toArray();
@@ -18,7 +18,7 @@ class InvoiceService {
     });
   }
 
-  async getPage({ offset, limit, fromDate, toDate, invoiceType }) {
+  async function getPage({ offset, limit, fromDate, toDate, invoiceType }) {
     const { db } = await dbContext.connect();
     let res = [];
     
@@ -119,7 +119,7 @@ class InvoiceService {
     });
   }
 
-  async add(invoice) {
+  async function add(invoice) {
     const { db } = await dbContext.connect();
     let res = await db.collection(COLLECTIONS.INVOICES)
       .insertOne({
@@ -132,6 +132,12 @@ class InvoiceService {
       payload: res.result.ok === 1 ? res.ops[0] : null
     });
   }
-}
+
+  return {
+    getAll,
+    getPage,
+    add
+  };
+})();
 
 module.exports = InvoiceService;
