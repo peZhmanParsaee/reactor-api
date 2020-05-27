@@ -1,11 +1,9 @@
 const assert = require('assert');
-const CustomerService = require('../../../src/services/db-services/customer-service');
+const customerService = require('../../../src/services/db-services/customer-service');
 
 describe('Test CustomerService.getAll()', function() {
   it('Should returns all customers', function() {
-    const _customerService = new CustomerService();
-
-    _customerService.getAll()
+    customerService.getAll()
       .then(customers => {
         console.log(customers);
 
