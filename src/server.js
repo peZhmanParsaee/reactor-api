@@ -3,20 +3,24 @@ const http = require('http');
 const app = require('./app');
 const config = require('./config');
 const port = config.app.port || 3000;
-const dbContext = require('./data-layer/db-context');
+const dbConnection = require('./data-layer/mongodb-singleton-connection');
 
-const server = http.createServer(app);
+dbConnection.getInstance()
+  .then((dbInstance) => {
+    // boot the application
+    const server = http.createServer(app);
+    server.listen(port, () => {
+      const addr = server.address();
+      console.log(`Reactor API is up and running at ${addr.address} and port number ${port}`);
+    });
 
-server.listen(port, () => {
-  const addr = server.address();
-  console.log(`port: ${port}`);
-  console.log(`API is running at ${addr.address} and port number ${port}`);
-});
-
-process.on('SIGINT', async () => {
-  const { connection } = await dbContext.connect();
-  console.log('connection', connection);
-  await connection.close();
-  console.log('Mongodb connections was closed on app termination');
-  process.exit();
-});
+    process.on('SIGINT', async () => {
+      await dbInstance.close();
+      console.log('Mongodb connections was closed on app termination');
+      process.exit();
+    });
+  })
+  .catch(e =>  {
+    console.error(e);
+    process.exit(1);
+  });
