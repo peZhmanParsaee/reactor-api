@@ -1,6 +1,8 @@
 // @flow
-
+const url = require('url');
 require('dotenv').config();
+
+const parsedUrl = url.parse(process.env.CONNECTION_STRING || 'mongodb://localhost/reactor');
 
 module.exports = {
   app: {
@@ -8,11 +10,12 @@ module.exports = {
     port: process.env.APP_PORT
   },
   db: {
-    name: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/?authMechanism=DEFAULT`
-    // url: process.env.MONGOLAB_URI
+    host: parsedUrl.hostname,
+    port: parseInt(parsedUrl.port, 10),
+    name: parsedUrl.pathname.substr(1),
+    user: parsedUrl.auth ? parsedUrl.auth.split(':')[0] : null,
+    password: parsedUrl.auth ? parsedUrl.auth.split(':')[1] : null,
+    url: process.env.CONNECTION_STRING
   }
 };
 
