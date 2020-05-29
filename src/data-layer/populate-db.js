@@ -1,4 +1,4 @@
-const dbContext = require('./db-context');
+const dbConnection = require('./mongodb-singleton-connection');
 const { COLLECTIONS } = require('../infrastructures/models/enums.json');
 const provincesData = require('./ir-provinces.json');
 const customersData = [
@@ -9,12 +9,13 @@ const customersData = [
   { fullName: 'بیارنه استروستوپ' },
 ];
 
-dbContext.connect()
-  .then(async client => {
+dbConnection.getInstance()
+  .then(async (dbInstance) => {
+    const db = dbConnection.getDb();
     
     for (const province of provincesData) {
 
-      await client.db.collection(COLLECTIONS.PROVINCES)
+      await db.collection(COLLECTIONS.PROVINCES)
         .insertOne({
           name: province.name
         })
@@ -28,22 +29,22 @@ dbContext.connect()
             };
           });
 
-          await client.db.collection(COLLECTIONS.CITIES).insertMany(provinceCities);
+          await db.collection(COLLECTIONS.CITIES).insertMany(provinceCities);
 
         });
     }
 
-    await client.db.collection(COLLECTIONS.CUSTOMERS)
+    await db.collection(COLLECTIONS.CUSTOMERS)
       .insertMany(customersData);
     
-    await client.db.collection(COLLECTIONS.LAST_INVOICE_NO)
+    await db.collection(COLLECTIONS.LAST_INVOICE_NO)
       .insertOne({
         invoiceNo: 1
       });
     
-    await client.db.createCollection(COLLECTIONS.INVOICES);    
+    await db.createCollection(COLLECTIONS.INVOICES);    
 
-    await client.connection.close();
+    await dbInstance.close();
 
     console.log('Data was imported successfully');
   })

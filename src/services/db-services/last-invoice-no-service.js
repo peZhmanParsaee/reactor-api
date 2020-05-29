@@ -1,10 +1,10 @@
-const dbContext = require('../../data-layer/db-context');
+const dbConnection = require('../../data-layer/mongodb-singleton-connection');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
 const LastInvoiceNoService = (function() {
   async function getNewInvoiceNo() {
-    const { db } = await dbContext.connect();
+    const db = dbConnection.getDb();
     let res = await db.collection(COLLECTIONS.LAST_INVOICE_NO)
       .findOne();
     

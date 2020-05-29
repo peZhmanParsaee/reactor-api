@@ -1,10 +1,11 @@
-const dbContext = require('../../data-layer/db-context');
+const dbConnection = require('../../data-layer/mongodb-singleton-connection');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
 export default (function ProductService() {
   async function getAll() {
-    const { db } = await dbContext.connect();
+    const db = dbConnection.getDb();
+    
     const res = await db.collection(COLLECTIONS.PRODUCTS)
       .find().toArray();
     
@@ -15,7 +16,7 @@ export default (function ProductService() {
   }
 
   async function add(product) {
-    const { db } = await dbContext.connect();
+    const db = dbConnection.getDb();
       
     const res = await db.collection(COLLECTIONS.PRODUCTS)
       .insertOne(product);

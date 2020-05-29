@@ -1,6 +1,6 @@
 const ObjectID = require('mongodb').ObjectID;
 
-const dbContext = require('../../data-layer/db-context');
+const dbConnection = require('../../data-layer/mongodb-singleton-connection');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 const { getCurrectTimeStamp, addToTimestampAndFormatJalaali } = require('../../infrastructures/helpers/date-time-helper');
@@ -8,7 +8,7 @@ const { getCurrectTimeStamp, addToTimestampAndFormatJalaali } = require('../../i
 
 const InvoiceService = (function() {
   async function getAll() {
-    const { db } = await dbContext.connect();
+    const db = dbConnection.getDb();
     const res = await db.collection(COLLECTIONS.INVOICES)
       .find().toArray();
     
@@ -19,7 +19,7 @@ const InvoiceService = (function() {
   }
 
   async function getPage({ offset, limit, fromDate, toDate, invoiceType }) {
-    const { db } = await dbContext.connect();
+    const db = dbConnection.getDb();
     let res = [];
     
     let filter = {};
@@ -120,7 +120,7 @@ const InvoiceService = (function() {
   }
 
   async function add(invoice) {
-    const { db } = await dbContext.connect();
+    const db = dbConnection.getDb();
     let res = await db.collection(COLLECTIONS.INVOICES)
       .insertOne({
         ...invoice,
