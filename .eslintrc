@@ -4,25 +4,21 @@
     "node": true,
     "mocha": true
   },
-  "plugins": [
-    "flowtype"
-  ],
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
   "extends": [
+    "airbnb-base/legacy",
+    "prettier",
     "plugin:flowtype/recommended"
   ],
+  "plugins": [
+    "prettier",
+    "flowtype"
+  ],
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+    "comma-dangle": ["error", "never"],
+    "func-names": "off"
   },
   "globals": {
     "__baseDir": true
