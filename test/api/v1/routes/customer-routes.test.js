@@ -1,16 +1,16 @@
 const supertest = require('supertest');
 const expect = require('chai').expect;
+
 const app = require('../../../../src/app');
 
 describe('Customer routes test /api/v1/customer', function () {
-
-  describe('GET /', function () {
+  describe('GET /api/v1/customer', function () {
     it('should return all customers', function (done) {
       supertest(app)
         .get('/api/v1/customer')
         .expect('Content-Type', /application\/json/)
         .end((err, res) => {
-          if (err) done(err);
+          if (err) return done(err);
           expect(err).to.equal(null);
 
           expect(res.status).to.equal(200);
@@ -22,13 +22,13 @@ describe('Customer routes test /api/v1/customer', function () {
     });
   });
 
-  describe('GET /search', function () {
+  describe('GET /api/v1/customer/search', function () {
     it('should serach some customers', function (done) {
       supertest(app)
-        .get('/api/v1/customer/search')
+        .get('/api/v1/customer/search?q=xxx')
         .expect('Content-Type', /application\/json/)
         .end((err, res) => {
-          if (err) done(err);
+          if (err) return done(err);
           expect(err).to.equal(null);
 
           expect(res.status).to.equal(200);
