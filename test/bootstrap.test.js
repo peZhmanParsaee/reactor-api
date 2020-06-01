@@ -6,3 +6,13 @@ beforeEach(function(done) {
       done();
     });
 });
+
+afterEach(function(done) {
+  dbConnection.getInstance()
+    .then(dbInstance => {
+      dbInstance.close()
+        .then(() => {
+          done();
+        });
+    });
+});
