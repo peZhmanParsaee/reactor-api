@@ -1,7 +1,7 @@
 {
-  "name": "commercify-api",
+  "name": "reactor-api",
   "version": "1.0.0",
-  "description": "API for Commercify - a Super Tiny Invoice Generator Application",
+  "description": "API for Reactor - a Super Tiny Invoice Generator Application",
   "scripts": {
     "start": "node ./src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec ./node_modules/.bin/babel-node ./src/server.js",
