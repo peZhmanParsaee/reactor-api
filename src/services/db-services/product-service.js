@@ -2,7 +2,7 @@ const dbConnection = require('../../data-layer/mongodb-singleton-connection');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
-export default (function ProductService() {
+const ProductService = (function() {
   async function getAll() {
     const db = dbConnection.getDb();
     
@@ -33,3 +33,5 @@ export default (function ProductService() {
   };
   
 })();
+
+module.exports = ProductService;
