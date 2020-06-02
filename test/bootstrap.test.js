@@ -1,18 +1,18 @@
 const dbConnection = require('../src/data-layer/mongodb-singleton-connection');
 
-beforeEach(function(done) {
+before(function(done) {
   dbConnection.getInstance()
     .then(() => {
       done();
     });
 });
 
-afterEach(function(done) {
+after(function(done) {
+  console.log('after each');
   dbConnection.getInstance()
     .then(dbInstance => {
-      dbInstance.close()
-        .then(() => {
-          done();
-        });
+      dbInstance.close(function(err, res) {
+        done();
+      });
     });
 });
