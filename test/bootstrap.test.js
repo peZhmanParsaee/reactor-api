@@ -8,7 +8,6 @@ before(function(done) {
 });
 
 after(function(done) {
-  console.log('after each');
   dbConnection.getInstance()
     .then(dbInstance => {
       dbInstance.close(function(err, res) {
