@@ -17,8 +17,9 @@ describe('Product routes', function() {
           should.not.exist(err);
           res.status.should.equal(200);
           res.body.status.should.equal(true);
+          res.body.payload.should.exist;
 
-          done();
+          return done();
         });
     });
   });
