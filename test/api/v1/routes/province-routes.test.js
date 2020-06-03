@@ -1,12 +1,12 @@
-const supertest = require('supertest');
+const request = require('supertest');
 const expect = require('chai').expect;
 
 const app = require('../../../../src/app');
 
 describe('Provinces routes test /api/v1/province', function() {
   describe('GET /api/v1/province', function() {
-    it('should return all provinces in the database', function(done) {
-      supertest(app)
+    it('should return HTTP 200 with provinces list in the database', function(done) {
+      request(app)
         .get('/api/v1/province')
         .expect('Content-Type', /application\/json/)
         .end((err, res) => {
@@ -21,6 +21,14 @@ describe('Provinces routes test /api/v1/province', function() {
 
           done();
         });
+    });
+  });
+
+  describe('POST /api/v1/province', function() {
+    it('should return HTTP 404', function(done) {
+      request(app)
+        .post('/api/v1/province')
+        .expect(404, done);
     });
   });
 });
