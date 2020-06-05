@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "API for Reactor - a Super Tiny Invoice Generator Application",
   "scripts": {
-    "start": "node ./src/server.js",
+    "start": "./node_modules/.bin/babel-node ./src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec ./node_modules/.bin/babel-node ./src/server.js",
     "populate-db": "node ./src/data-layer/populate-db.js",
     "lint": "eslint src",
@@ -14,6 +14,11 @@
   "author": "peZhman ParsaEe",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/node": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.10.0",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-flow": "^7.7.4",
     "@babel/runtime": "^7.7.7",
     "async": "^2.6.2",
     "body-parser": "^1.18.3",
@@ -28,11 +33,6 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/node": "^7.7.7",
-    "@babel/plugin-transform-runtime": "^7.10.0",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-flow": "^7.7.4",
     "@babel/register": "^7.9.0",
     "babel-eslint": "^10.0.3",
     "chai": "^4.2.0",
