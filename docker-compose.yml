@@ -1,0 +1,18 @@
+version: "3"
+services:
+  api:
+    build: "."
+    ports:
+      - "1570:1570"
+    depends_on:
+      - db
+    environment:
+      - CONNECTION_STRING=mongodb://db/reactor
+      - APP_ENV=production
+      - APP_PORT=1570
+
+  db:
+    image: mongo
+    ports: 
+      - "27020:27017"
+
