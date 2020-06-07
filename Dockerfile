@@ -8,4 +8,4 @@ RUN npm install --production
 
 EXPOSE 1570
 
-CMD npm start
+CMD ["/cmd.sh"]
