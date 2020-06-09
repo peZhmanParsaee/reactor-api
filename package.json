@@ -58,7 +58,9 @@
     "node": "10.15.3"
   },
   "husky": {
-    "pre-commit": "npm test",
-    "pre-push": "npm test"
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
   }
 }
