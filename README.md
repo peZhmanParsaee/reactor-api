@@ -1,5 +1,7 @@
 # Reactor API
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 Reactor is a super tiny invoice management application. This code repository is its `API` source code which has been developed by [Node.js](https://nodejs.org/) and [MongoDB](https://www.mongodb.com/). Moreover, there is a Web UI for this application which is located in [Reactor Web UI Repository](https://github.com/pezhmanparsaee/reactor-web-ui)
 
 ## Popular NPM Dependencies
