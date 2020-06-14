@@ -2,7 +2,6 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('../infrastructures/middlewares/cors');
 const expressValidator = require('express-validator');
-const persianJs = require('persianjs');
 const bodySanitizer = require('../infrastructures/middlewares/body-sanitizer');
 
 module.exports = (app) => {
@@ -42,14 +41,6 @@ module.exports = (app) => {
           }
         }
         return notValid;
-      }
-    },
-    customSanitizers: {
-      correctArabicChars: value => {
-        return persianJs(value).arabicChar().toString();
-      },
-      correctPersianNumbers: value => {
-        return persianJs(value).persianNumber().toString();
       }
     }
   }));
