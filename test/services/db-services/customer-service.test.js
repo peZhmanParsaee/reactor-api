@@ -4,13 +4,11 @@ const customerService = require('../../../src/services/db-services/customer-serv
 describe('Test CustomerService.getAll()', function() {
   it('Should returns all customers', function() {
     customerService.getAll()
-      .then(customers => {
-        console.log(customers);
-
-        assert(true);
+      .then(customersResponse => {
+        assert(customersResponse.status);
+        assert(!!customersResponse.payload && !!customersResponse.payload.length)
       })
-      .catch(err => {
-        console.error(err);
+      .catch(() => {
         assert(false);
       });
   });
