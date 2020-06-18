@@ -1,20 +1,23 @@
 const dbConnection = require('../../data-layer/mongodb-singleton-connection');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 
-const CustomerService = (function() {
+const makeCustomerService = function(dependencies) {
+
   async function getAll() {
-    const db = dbConnection.getDb();
-    const res = await db.collection('customers')
+    const db = dependencies.dbConnection.getDb();
+    
+    const customers = await db.collection('customers')
       .find().toArray();
     
     return opStatusGenerator({
       status: true,
-      payload: res
+      payload: customers
     });
   }
 
   async function search(customerName) {
-    const db = dbConnection.getDb();
+    const db = dependencies.dbConnection.getDb();
+
     const query = { fullName: { '$regex': customerName, '$options' : 'i' } };
     const customers = await db.collection('customers')
       .find(query)
@@ -30,6 +33,11 @@ const CustomerService = (function() {
     getAll,
     search
   }
-})();
+};
 
-module.exports = CustomerService;
+const customerServiceDependencies = {
+  dbConnection
+};
+const customerService = makeCustomerService(customerServiceDependencies);
+
+module.exports = customerService;
