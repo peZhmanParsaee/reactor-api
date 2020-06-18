@@ -1,11 +1,10 @@
 const express = require('express');
+const customerService = require('../../../services/db-services/customer-service');
+
 const router = express.Router();
 
-const CustomerController = require('../controllers/customer-controller');
-const customerController = new CustomerController();
+router.get('/', customerService.getAll);
 
-router.get('/', customerController.getAll);
-
-router.get('/search', customerController.search);
+router.get('/search', customerService.search);
 
 module.exports = router;
