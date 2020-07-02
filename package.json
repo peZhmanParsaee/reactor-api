@@ -25,7 +25,6 @@
     "cross-env": "^6.0.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
-    "express-validator": "^5.3.1",
     "moment-jalaali": "^0.8.3",
     "mongodb": "^3.1.13",
     "morgan": "^1.9.1"
