@@ -3,7 +3,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "javascript.validate.enable": false,
   "typescript.validate.enable": false,
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "flow.runOnEdit": false,
   "flow.useNPMPackagedFlow": true
 }
