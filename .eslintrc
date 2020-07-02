@@ -7,20 +7,10 @@
   "parserOptions": {
     "ecmaVersion": 6
   },
-  "extends": [
-    "airbnb-base/legacy",
-    "prettier",
-    "plugin:flowtype/recommended"
-  ],
-  "plugins": [
-    "prettier",
-    "flowtype"
-  ],
+  "extends": ["airbnb-base/legacy", "prettier", "plugin:flowtype/recommended"],
+  "plugins": ["prettier", "flowtype"],
   "rules": {
     "comma-dangle": ["error", "never"],
     "func-names": "off"
-  },
-  "globals": {
-    "__baseDir": true
   }
 }

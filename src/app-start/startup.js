@@ -4,16 +4,15 @@ const cors = require('../infrastructures/middlewares/cors');
 const expressValidator = require('express-validator');
 const bodySanitizer = require('../infrastructures/middlewares/body-sanitizer');
 
-module.exports = (app) => {
-  global.__baseDir = __dirname;  
-  
+module.exports = app => {
   app.use(cors());
 
   app.use(bodyParser.json());
   
   app.use(morgan('dev'));
 
-  app.use(expressValidator({
+  app.use(
+    expressValidator({
     customValidators: {
       lessThan: (value1, value2) => {
         return value1 < value2;
@@ -21,7 +20,7 @@ module.exports = (app) => {
       lessThanOrEqual: (value1, value2) => {
         return value1 <= value2;
       },
-      isArray: (value) => {
+        isArray: value => {
         return Array.isArray(value) && value.length > 0;
       },
       isString: value => {
