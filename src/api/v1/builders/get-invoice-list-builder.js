@@ -53,6 +53,9 @@ export default (function() {
   }
 
   function build() {
+    if (!validate()) {
+      // TODO return errors or throw an error
+    }
     return self;
   }
 
@@ -61,6 +64,7 @@ export default (function() {
     setToDate,
     setInvoiceType,
     setOffset,
-    setLimit
+    setLimit,
+    build
   };
 })();
