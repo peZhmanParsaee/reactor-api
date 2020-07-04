@@ -6,7 +6,7 @@ NumberHelper.convertToInt = val => {
 };
 
 NumberHelper.faToEnDigits = function(input) {
-  if (input == undefined) {
+  if (input === undefined || input === null || input === '') {
     return;
   }
 
