@@ -1,15 +1,15 @@
-const dbConnection = require('../../data-layer/mongodb-singleton-connection');
+const dbConnection = require('../../data-layer/connection');
 
 const makeCustomerService = function(dependencies) {
-
   async function getAll(req, res, next) {
     try {
       const db = dependencies.dbConnection.getDb();
-    
-      const customers = await db.collection('customers')
+
+      const customers = await db
+        .collection('customers')
         .find()
         .toArray();
-      
+
       return res.json({
         status: true,
         payload: customers
@@ -25,16 +25,17 @@ const makeCustomerService = function(dependencies) {
 
       const customerName = req.query.q;
 
-      const query = { fullName: { '$regex': customerName, '$options' : 'i' } };
-      const customers = await db.collection('customers')
+      const query = { fullName: { $regex: customerName, $options: 'i' } };
+      const customers = await db
+        .collection('customers')
         .find(query)
         .toArray();
-      
+
       return res.json({
         status: true,
         payload: customers
       });
-    } catch(err) {
+    } catch (err) {
       return next(err);
     }
   }
@@ -42,7 +43,7 @@ const makeCustomerService = function(dependencies) {
   return {
     getAll,
     search
-  }
+  };
 };
 
 const customerService = makeCustomerService({ dbConnection });

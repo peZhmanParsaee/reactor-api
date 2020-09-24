@@ -3,15 +3,18 @@ const http = require('http');
 const app = require('./app');
 const config = require('./config');
 const port = config.app.port || 3000;
-const dbConnection = require('./data-layer/mongodb-singleton-connection');
+const dbConnection = require('./data-layer/connection');
 
-dbConnection.getInstance()
-  .then((dbInstance) => {
+dbConnection
+  .getInstance()
+  .then(dbInstance => {
     // boot the application
     const server = http.createServer(app);
     server.listen(port, () => {
       const addr = server.address();
-      console.log(`Reactor API is up and running at ${addr.address} and port number ${port}`);
+      console.log(
+        `Reactor API is up and running at ${addr.address} and port number ${port}`
+      );
     });
 
     process.on('SIGINT', async () => {
@@ -20,7 +23,7 @@ dbConnection.getInstance()
       process.exit();
     });
   })
-  .catch(e =>  {
+  .catch(e => {
     console.error(e);
     process.exit(1);
   });

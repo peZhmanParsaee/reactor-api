@@ -1,4 +1,4 @@
-const dbConnection = require('./mongodb-singleton-connection');
+const dbConnection = require('./connection');
 const { COLLECTIONS } = require('../infrastructures/models/enums.json');
 const provincesData = require('./ir-provinces.json');
 const customersData = [
@@ -6,16 +6,17 @@ const customersData = [
   { fullName: 'درخشان فر' },
   { fullName: 'جف بیزوس' },
   { fullName: 'بیل گیتس' },
-  { fullName: 'بیارنه استروستوپ' },
+  { fullName: 'بیارنه استروستوپ' }
 ];
 
-dbConnection.getInstance()
-  .then(async (dbInstance) => {
+dbConnection
+  .getInstance()
+  .then(async dbInstance => {
     const db = dbConnection.getDb();
-    
-    for (const province of provincesData) {
 
-      await db.collection(COLLECTIONS.PROVINCES)
+    for (const province of provincesData) {
+      await db
+        .collection(COLLECTIONS.PROVINCES)
         .insertOne({
           name: province.name
         })
@@ -25,24 +26,21 @@ dbConnection.getInstance()
           const provinceCities = province.cities.map(function(city) {
             return {
               provinceId: provinceId,
-              name: city.name          
+              name: city.name
             };
           });
 
           await db.collection(COLLECTIONS.CITIES).insertMany(provinceCities);
-
         });
     }
 
-    await db.collection(COLLECTIONS.CUSTOMERS)
-      .insertMany(customersData);
-    
-    await db.collection(COLLECTIONS.LAST_INVOICE_NO)
-      .insertOne({
-        invoiceNo: 1
-      });
-    
-    await db.createCollection(COLLECTIONS.INVOICES);    
+    await db.collection(COLLECTIONS.CUSTOMERS).insertMany(customersData);
+
+    await db.collection(COLLECTIONS.LAST_INVOICE_NO).insertOne({
+      invoiceNo: 1
+    });
+
+    await db.createCollection(COLLECTIONS.INVOICES);
 
     await dbInstance.close();
 

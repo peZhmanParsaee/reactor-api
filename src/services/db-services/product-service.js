@@ -1,4 +1,4 @@
-const dbConnection = require('../../data-layer/mongodb-singleton-connection');
+const dbConnection = require('../../data-layer/connection');
 const opStatusGenerator = require('../../infrastructures/helpers/op-status-generator');
 const { COLLECTIONS } = require('../../infrastructures/models/enums.json');
 
