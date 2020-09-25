@@ -1,13 +1,21 @@
 const express = require('express');
-const startup = require('./app-start/startup');
-const routes = require('./api/v1/index');
-const logErrors = require('./infrastructures/middlewares/log-errors');
-const clientErrorHandler = require('./infrastructures/middlewares/client-error-handler');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+
+const routes = require('./routes');
+const cors = require('./common/middlewares/cors');
+
+const logErrors = require('./common/middlewares/log-errors');
+const clientErrorHandler = require('./common/middlewares/client-error-handler');
 
 const app = express();
 
-startup(app);
-routes(app);
+app.use(cors());
+app.use(bodyParser.json());
+app.use(morgan('dev'));
+
+routes.init(app);
+
 logErrors(app);
 clientErrorHandler(app);
 

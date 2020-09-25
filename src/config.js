@@ -2,7 +2,9 @@
 const url = require('url');
 require('dotenv').config();
 
-const parsedUrl = url.parse(process.env.CONNECTION_STRING || 'mongodb://localhost:27017/reactor');
+const parsedUrl = url.parse(
+  process.env.CONNECTION_STRING || 'mongodb://localhost:27017/reactor'
+);
 
 module.exports = {
   app: {
@@ -18,4 +20,3 @@ module.exports = {
     url: process.env.CONNECTION_STRING
   }
 };
-
