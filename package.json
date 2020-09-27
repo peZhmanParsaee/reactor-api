@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development nodemon --exec ./node_modules/.bin/babel-node ./src/index.js",
     "populate-db": "node ./src/db/populate-db.js",
     "lint": "eslint src",
-    "test": "set NODE_ENV=test && nyc mocha test/**/*.test.js --require @babel/register --timeout 10000",
+    "test": "set NODE_ENV=test && nyc mocha src/**/*.test.js --require @babel/register --timeout 10000",
     "flow": "flow"
   },
   "keywords": [],
