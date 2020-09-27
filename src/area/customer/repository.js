@@ -1,21 +1,19 @@
-const dbConnection = require('../../db/connection');
+const { db } = require('../../db/connection');
 const { COLLECTIONS } = require('../../common/enums');
 
-const makeCustomerRepository = function(dependencies) {
-  async function getAll() {
-    const db = dependencies.dbConnection.getDb();
-
+function makeGetAllCustomers({ db, COLLECTIONS }) {
+  return async () => {
     const customers = await db
       .collection(COLLECTIONS.CUSTOMERS)
       .find()
       .toArray();
 
     return customers;
-  }
+  };
+}
 
-  async function search(cusomerName) {
-    const db = dependencies.dbConnection.getDb();
-
+function makeSearchCustomers({ db, COLLECTIONS }) {
+  return async customerName => {
     const query = { fullName: { $regex: customerName, $options: 'i' } };
 
     const customers = await db
@@ -24,15 +22,12 @@ const makeCustomerRepository = function(dependencies) {
       .toArray();
 
     return customers;
-  }
-
-  return {
-    getAll,
-    search
   };
+}
+
+module.exports = {
+  makeGetAllCustomers,
+  makeSearchCustomers,
+  getAllCustomers: makeGetAllCustomers({ db, COLLECTIONS }),
+  searchCustomers: makeSearchCustomers({ db, COLLECTIONS })
 };
-
-const customerRepo = makeCustomerRepository({ dbConnection });
-
-module.exports = customerRepo;
-exports.makeCustomerRepository = makeCustomerRepository;

@@ -1,9 +1,9 @@
-const repository = require('./repository');
+const { getAllCustomers, searchCustomers } = require('./repository');
 
-function getAll({ repository }) {
-  return async function(req, res, next) {
+function makeGetAll({ repository }) {
+  return async (req, res, next) => {
     try {
-      const customers = await repository.getAll();
+      const customers = await getAllCustomers();
 
       res.json({
         status: true,
@@ -15,10 +15,10 @@ function getAll({ repository }) {
   };
 }
 
-function search({ repository }) {
-  return async function(req, res, next) {
+function makeSearch({ repository }) {
+  return async (req, res, next) => {
     try {
-      const customers = await repository.search(req.query.q);
+      const customers = await searchCustomers(req.query.q);
 
       res.json({
         status: true,
@@ -31,6 +31,8 @@ function search({ repository }) {
 }
 
 module.exports = {
-  getAll: getAll({ repository }),
-  search: search({ repository })
+  makeGetAll,
+  makeSearch,
+  getAll: makeGetAll({ repository }),
+  search: makeSearch({ repository })
 };
