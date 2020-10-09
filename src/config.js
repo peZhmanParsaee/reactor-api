@@ -1,6 +1,11 @@
 // @flow
 const url = require('url');
-require('dotenv').config();
+const dotenv = require('dotenv');
+const result = dotenv.config();
+
+if (result.error) {
+  throw result.error;
+}
 
 const parsedUrl = url.parse(
   process.env.CONNECTION_STRING || 'mongodb://localhost:27017/reactor'
@@ -8,8 +13,8 @@ const parsedUrl = url.parse(
 
 module.exports = {
   app: {
-    env: process.env.APP_ENV,
-    port: process.env.APP_PORT
+    env: process.env.NODE_ENV,
+    port: process.env.PORT
   },
   db: {
     host: parsedUrl.hostname,
