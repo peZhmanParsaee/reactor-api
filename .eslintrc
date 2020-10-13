@@ -11,6 +11,7 @@
   "plugins": ["prettier", "flowtype"],
   "rules": {
     "comma-dangle": ["error", "never"],
-    "func-names": "off"
+    "func-names": "off",
+    "no-shadow": "off"
   }
 }
