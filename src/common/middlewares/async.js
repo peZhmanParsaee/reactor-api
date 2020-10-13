@@ -1,9 +1,4 @@
-module.exports = function asyncMiddleware(handler) {
-  return async function(req, res, next) {
-    try {
-      await handler;
-    } catch (ex) {
-      next(ex);
-    }
-  };
-};
+const asyncMiddleware = handler => (req, res, next) =>
+  Promise.resolve(handler(req, res, next)).catch(next);
+
+module.exports = asyncMiddleware;
