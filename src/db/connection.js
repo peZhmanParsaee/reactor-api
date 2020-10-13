@@ -12,9 +12,11 @@ module.exports = (function() {
       }
 
       const options = {
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useUnifiedTopology: true
       };
-      MongoClient.connect(config.db.url, options, function(err, client) {
+
+      return MongoClient.connect(config.db.url, options, function(err, client) {
         if (err) {
           return reject(err);
         }
