@@ -1,38 +1,31 @@
 const { getAllCustomers, searchCustomers } = require('./repository');
+const asyncMiddleware = require('../../common/middlewares/async');
 
-function makeGetAll({ repository }) {
-  return async (req, res, next) => {
-    try {
-      const customers = await getAllCustomers();
+function makeGetAll({ getAllCustomers }) {
+  return asyncMiddleware(async (req, res) => {
+    const customers = await getAllCustomers();
 
-      res.json({
-        status: true,
-        payload: customers
-      });
-    } catch (err) {
-      return next(err);
-    }
-  };
+    res.json({
+      status: true,
+      payload: customers
+    });
+  });
 }
 
-function makeSearch({ repository }) {
-  return async (req, res, next) => {
-    try {
-      const customers = await searchCustomers(req.query.q);
+function makeSearch({ searchCustomers }) {
+  return asyncMiddleware(async (req, res) => {
+    const customers = await searchCustomers(req.query.q);
 
-      res.json({
-        status: true,
-        payload: customers
-      });
-    } catch (err) {
-      return next(err);
-    }
-  };
+    res.json({
+      status: true,
+      payload: customers
+    });
+  });
 }
 
 module.exports = {
   makeGetAll,
   makeSearch,
-  getAll: makeGetAll({ repository }),
-  search: makeSearch({ repository })
+  getAll: makeGetAll({ getAllCustomers }),
+  search: makeSearch({ searchCustomers })
 };
