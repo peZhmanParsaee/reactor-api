@@ -1,5 +1,5 @@
 const dbConnection = require('./connection');
-const { COLLECTIONS } = require('../infrastructures/models/enums.json');
+const { COLLECTIONS } = require('../common/enums');
 const provincesData = require('./ir-provinces.json');
 const customersData = [
   { fullName: 'پژمان پارسایی' },
