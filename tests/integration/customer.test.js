@@ -4,20 +4,6 @@ const server = require('../../src/app');
 const dbConnection = require('../../src/db/connection');
 
 describe('/api/v1/customer', () => {
-  before(function(done) {
-    dbConnection.getInstance().then(() => {
-      done();
-    });
-  });
-
-  after(function(done) {
-    dbConnection.getInstance().then(dbInstance => {
-      dbInstance.close(() => {
-        done();
-      });
-    });
-  });
-
   afterEach(function(done) {
     dbConnection
       .getDb()
