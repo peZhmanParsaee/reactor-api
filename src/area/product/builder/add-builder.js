@@ -1,4 +1,4 @@
-export default (function AddProductBuilder() {
+module.exports = (function AddProductBuilder() {
   let self = {
     name: null,
     stock: null,
