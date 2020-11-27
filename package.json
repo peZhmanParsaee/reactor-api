@@ -4,7 +4,7 @@
   "description": "An example API built with Node.js",
   "scripts": {
     "start": "babel-node ./src/index.js",
-    "dev": "cross-env NODE_ENV=development nodemon --exec ./node_modules/.bin/babel-node ./src/index.js",
+    "dev": "nodemon --exec ./node_modules/.bin/babel-node ./src/index.js",
     "populate-db": "node ./src/db/populate-db.js",
     "lint": "eslint src",
     "test": "nyc mocha",
@@ -20,7 +20,6 @@
     "@babel/preset-flow": "^7.10.4",
     "@babel/runtime": "^7.11.2",
     "async": "^2.6.3",
-    "cross-env": "^6.0.3",
     "dotenv": "^7.0.0",
     "express": "^4.17.1",
     "helmet": "^4.1.1",
