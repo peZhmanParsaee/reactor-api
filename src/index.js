@@ -4,6 +4,13 @@ const app = require('./app');
 const config = require('./config');
 const connection = require('./db/connection');
 
+process.on('unhandledRejection', ex => {
+  process.exit(1);
+});
+
+process.on('uncaughtException', ex => {
+  process.exit(1);
+});
 
 const start = async () => {
   let db;
