@@ -29,5 +29,6 @@ module.exports = {
     user: parsedUrl.auth ? parsedUrl.auth.split(':')[0] : null,
     password: parsedUrl.auth ? parsedUrl.auth.split(':')[1] : null,
     url: dbUrl
-  }
+  },
+  jwtKey: process.env.JWT_KEY
 };
