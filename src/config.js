@@ -19,18 +19,16 @@ function requireFromEnv(key) {
 
 let dbUrl = requireFromEnv('CONNECTION_STRING');
 
-if (process.env.NODE_ENV === 'test') {
+if (requireFromEnv('NODE_ENV') === 'test') {
   dbUrl = 'mongodb://localhost:27017/reactor_test';
-} else {
-  dbUrl = process.env.CONNECTION_STRING || 'mongodb://localhost:27017/reactor';
 }
 
 const parsedUrl = url.parse(dbUrl);
 
 module.exports = {
   app: {
-    env: process.env.NODE_ENV,
-    port: process.env.PORT
+    env: requireFromEnv('NODE_ENV'),
+    port: parseInt(requireFromEnv('PORT'), 10)
   },
   db: {
     host: parsedUrl.hostname,
@@ -40,5 +38,5 @@ module.exports = {
     password: parsedUrl.auth ? parsedUrl.auth.split(':')[1] : null,
     url: dbUrl
   },
-  jwtKey: process.env.JWT_KEY
+  jwtKey: requireFromEnv('JWT_KEY')
 };
