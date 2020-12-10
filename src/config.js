@@ -7,7 +7,17 @@ if (result.error) {
   throw result.error;
 }
 
-let dbUrl;
+function requireFromEnv(key) {
+  if (!process.env[key]) {
+    console.error(`[APP ERROR] Missing env variable ${key}`);
+
+    return process.exit(1);
+  }
+
+  return process.env[key];
+}
+
+let dbUrl = requireFromEnv('CONNECTION_STRING');
 
 if (process.env.NODE_ENV === 'test') {
   dbUrl = 'mongodb://localhost:27017/reactor_test';
