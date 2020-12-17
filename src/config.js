@@ -9,7 +9,8 @@ if (result.error) {
 
 function requireFromEnv(key) {
   if (!process.env[key]) {
-    console.error(`[APP ERROR] Missing env variable ${key}`);
+    const fgRed = '\x1b[31m';
+    console.error(fgRed, `[APP ERROR] Missing env variable ${key}`);
 
     return process.exit(1);
   }
